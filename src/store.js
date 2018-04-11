@@ -1,6 +1,6 @@
 import { createStore,applyMiddleware,combineReducers } from 'redux'
 import thunk from 'redux-thunk';
-//import sections from './reducers/sections';
+import businesses from './reducers/businesses';
 //import sectionFormData from './reducers/sectionFormData';
 //import sectionCurrent from './reducers/sectionCurrent';
 //import composition from './reducers/composition';
@@ -12,7 +12,7 @@ export const history = createHistory()
 const middleware = [thunk, routerMiddleware(history)];
 
 const reducers = combineReducers({
-    //sections,
+    businesses,
    // sectionFormData,
     //sectionCurrent,
     //composition,
