@@ -8,12 +8,13 @@ import typedSubscriber from './reducers/typedSubscriber';
 //import sectionFormData from './reducers/sectionFormData';
 //import sectionCurrent from './reducers/sectionCurrent';
 //import composition from './reducers/composition';
-import {  routerMiddleware} from 'react-router-redux'
+//import {  routerMiddleware} from 'react-router-redux'
 
-import createHistory from 'history/createBrowserHistory'
+//import createHistory from 'history/createBrowserHistory'
 
-export const history = createHistory()
-const middleware = [thunk, routerMiddleware(history)];
+//export const history = createHistory()
+const middleware = [thunk]
+    //routerMiddleware(history)];
 
 const reducers = combineReducers({
     businesses,
