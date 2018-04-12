@@ -4,3 +4,9 @@
     left: 33%;
     overflow-y: scroll;
 }
+
+.fixRightMost{
+    position: fixed;
+    top: 5px;
+    left: 66%;
+}
