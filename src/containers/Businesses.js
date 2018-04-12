@@ -1,63 +1,84 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getBusinesses } from '../actions/businesses';
-import { filterFranchise } from '../actions/filters';
-//import { makeArrayOfCards } from '../actions/makeCards';
 import Card from '../components/Card';
+import Subscribers from '../containers/Subscribers';
+import { getBusinesses, selectBusiness } from '../actions/businesses';
+import { filterFranchise, makeArrayOfOptions } from '../actions/filters';
+//import { siftCards, onCardSelect } from '../actions/cards';
 import Select from '../components/Select';
-
 import Loading from '../components/Loading';
 
 class Businesses extends Component{
-    componentDidMount(){
-        this.props.getBusinesses();
+    constructor(props){
+        super(props);
+        this.list = [];
     }
-    makeArrayOfCards(elements) {
+    componentDidMount(){
+        this.props.getBusinesses()
+    }
+    componentWillReceiveProps(nextProps){
+        const filter = nextProps.filters.businessFranchise
+        this.list = this.siftCards(this.props.businesses, filter, "franchise");
+    }
+    handleFilterTypeChange = event => {
+        const filter = event.target.value;
+        this.props.filterFranchise(filter);
+        if (filter === ""){
+            this.props.selectBusiness("");
+        }     
+    }
+    makeArrayOfCards = elements => {
         return elements.map(element => 
             <Card key={element.id}
                 name={element.name}
                 cents={element.revenue_to_date_in_cents}
                 franchise={element.franchise} 
                 status={element.status}
+                onChoose={this.onCardSelect}
+                id = {element.id}
             />
         );
     }
-    makeArrayOfOptions(objectArray, keyword) {
-        let set = new Set();
-        objectArray.forEach(obj => set.add(obj[keyword]))
-        set = ["",...set];
-
-        return set.map(val => <option key={val}>{val}</option>)
-
+    onCardSelect = (event, id) => {
+            console.log(id, "has been clicked");
+        this.props.selectBusiness(id);
+        
+    
     }
-    handleFilterTypeChange = event => {
-        //debugger;
-        const filter = event.target.value;
-        this.props.filterFranchise(filter);
+    siftCards = (elements, filter, keyword)=>{
+        let eles = [];
+        if (filter !== ""){
+            eles = elements.filter(ele => ele[keyword] === filter);
+        }
+        return this.makeArrayOfCards(eles);
     }
+    
     render(){
+        //debugger;
         return(
-            <div>
-                
+            <div className="fl w-third pa2">
+                {/* <div class="outline bg-white pv4"> */}
                 {this.props.businesses ? 
-                    <Select 
-                        filter={this.props.filter} 
+                    <Select
+                        label="Find Businesses by Franchise "
+                        filter={this.props.filters.businessFranchise} 
                         filterAction={this.handleFilterTypeChange} 
-                        options={this.makeArrayOfOptions(this.props.businesses, "franchise")}
+                        options={makeArrayOfOptions(this.props.businesses, "franchise")}
                     /> 
                     : <Loading key="-1" />
                 }
-                {this.props.businesses ? this.makeArrayOfCards(this.props.businesses) : ""}
-                Businesses!!!  
+                { this.list.length === 0 ? "" : this.list}
+                { this.props.filters.businessFranchise !== "" && this.props.selectedId > 0 ?  <Subscribers/> : "" }
+                {/* </div> */}
             </div>
         );
     }
 }
 const mapStateToProps = (state) => {
     return({
-        businesses: state.businesses,
-        filter: state.filters.businessFranchise
+        selectedId: state.selectedBusiness.id,
+        businesses: state.businesses, 
+        filters: state.filters
     });
 }
-export default connect(mapStateToProps, {getBusinesses, filterFranchise})(Businesses);
-//makeArrayOfCards
+export default connect(mapStateToProps, {getBusinesses, filterFranchise, selectBusiness})(Businesses);

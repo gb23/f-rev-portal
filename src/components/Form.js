@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Card = (props) => {
+const Form = (props) => {
     //debugger;
     return (
-        <div tabIndex="0"
+        <div
             className=""
             onClick={ (event) => props.onChoose(event, props.id) }
         >
@@ -18,4 +18,4 @@ const Card = (props) => {
     );
 }
 
-export default Card;
+export default Form;
