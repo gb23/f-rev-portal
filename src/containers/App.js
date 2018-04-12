@@ -9,6 +9,7 @@ import Businesses from './Businesses.js';
 
 class App extends Component {
   render() {
+    console.log("App component")
     return (
       <Router>
       {/* // <ConnectedRouter history={history}> */}
