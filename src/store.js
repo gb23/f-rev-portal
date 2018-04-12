@@ -4,6 +4,7 @@ import businesses from './reducers/businesses';
 import filters from './reducers/filters';
 import selectedBusiness from './reducers/selectedBusiness';
 import subscribers from './reducers/subscribers';
+import typedSubscriber from './reducers/typedSubscriber';
 //import sectionFormData from './reducers/sectionFormData';
 //import sectionCurrent from './reducers/sectionCurrent';
 //import composition from './reducers/composition';
@@ -18,7 +19,8 @@ const reducers = combineReducers({
     businesses,
     selectedBusiness,
     filters,
-    subscribers
+    subscribers,
+    typedSubscriber
    // sectionFormData,
     //sectionCurrent,
     //composition,
