@@ -10,6 +10,13 @@ const setBusinesses = businesses => { //make loading true here
     }
 }
 
+export const selectBusiness = id => {
+    return {
+        type: 'SELECT_BUSINESS',
+        id
+    }
+}
+
 
 //***ASYNC ACTIONS ***
 export const getBusinesses = () => {
