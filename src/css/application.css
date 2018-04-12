@@ -1,0 +1,6 @@
+.fixRight{
+    position: absolute;
+    top: 5px;
+    left: 33%;
+    overflow-y: scroll;
+}
