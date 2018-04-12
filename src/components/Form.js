@@ -4,16 +4,18 @@ const Form = (props) => {
     //debugger;
     return (
         <div
-            className=""
-            onClick={ (event) => props.onChoose(event, props.id) }
+            className="fixRightMost"   
         >
-            <h3>{props.name}</h3>
-            <h5>{props.email ? `Email: ${props.email}` : ""}</h5>
-            <h5>{props.cents ? `Revenue In Cents: ${props.cents}` : ""}</h5>
-            <h5>{props.franchise ? `Franchise: ${props.franchise}` : ""}</h5>
-            <h5>{props.status ? `Status: ${props.status}` : ""}</h5>
-
-            <br/>
+            <label>Add Subscriber to selected Business</label>
+            <form onSubmit={props.handleOnSubmit}>
+                <label htmlFor="name">Full Name</label>
+                <input type="text" name="name" onChange={(event) => props.handleInputChange(event)} value={props.name}/>
+                <br/>
+                <label htmlFor="email">Email</label>
+                <input type="email" name="email"onChange={(event) => props.handleInputChange(event)} value={props.email}/>
+                <br/>
+                <button type="submit">Add Subscriber</button>
+            </form>
         </div>
     );
 }
