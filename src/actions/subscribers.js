@@ -2,8 +2,10 @@ const API_URL = process.env.REACT_APP_API_URL;
 const token = "token=567493801"
 
 //***ACTION CREATORS ***
-const setSubscribers = subObj => { //make loading true here
-   
+export const setSubscribers = subObj => { 
+    if (!subObj.subscribers){
+        subObj.subscribers = {};
+    }
     return {
         type: 'GET_SUBSCRIBERS_SUCCESS',
         subscribers: subObj.subscribers
@@ -45,22 +47,21 @@ export const createSubscriber = (subscriber, id) => {
     const bodyObj = {"subscriber": subscriber}
     //debugger;
     return dispatch => {
+        //debugger;
         return fetch(`${API_URL}/businesses/${id}/subscribers?${token}`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(bodyObj)
-        })
-            .then(response => {
-                debugger;
-                response.json()})
+        }).then(response => response.json())
             .then(subscriber => {
                 console.log("logging subscriber response", subscriber);
             })
             .catch(error => {
                 debugger;
             });
-        
+            debugger;
     }
+    
 }

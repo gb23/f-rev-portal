@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Card from '../components/Card'
-import { getSubscribers, createSubscriber, addName, addEmail } from '../actions/subscribers';
+import { getSubscribers, createSubscriber, addName, addEmail, setSubscribers } from '../actions/subscribers';
 import { filterStatus, makeArrayOfOptions } from '../actions/filters';
 import Form from '../components/Form';
 import Select from '../components/Select';
@@ -10,22 +10,31 @@ import Loading from '../components/Loading';
 class Subscribers extends Component{
     constructor(props){
         super(props);
-        //this.id = props.id;
         this.list = [];
+        this.ignoreLoading = false;
     }
     componentDidMount(){
+        this.props.setSubscribers({})
+        this.props.filterStatus("");
         this.props.getSubscribers(this.props.selectedId)
     }
     componentWillReceiveProps(nextProps){
-        if (nextProps.selectedId !== ""){
-            if (this.props.selectedId !== nextProps.selectedId){
-                this.props.getSubscribers(nextProps.selectedId);
-                
-            }
+        if (this.props.selectedId !== nextProps.selectedId){
+            this.props.setSubscribers({})
+            this.props.filterStatus("");
+            this.props.getSubscribers(nextProps.selectedId);
+            
         }
+        else if(nextProps.filters.businessFranchise !== this.props.filters.businessFranchise){
+            this.props.setSubscribers({})
+            this.props.filterStatus("");
+            this.ignoreLoading = true;
+        }
+
         const filter = nextProps.filters.subscriberStatus
         this.list = this.siftCards(this.props.subscribers, filter, "status"); 
     }
+
     handleFilterTypeChange = event => {
         const filter = event.target.value;
         this.props.filterStatus(filter);
@@ -60,7 +69,6 @@ class Subscribers extends Component{
         }
     }
     handleSubmit = () => {
-        //debugger;
         const subscriberObj = {
             "name": this.props.typedSubscriber.name,
             "email": this.props.typedSubscriber.email
@@ -70,11 +78,23 @@ class Subscribers extends Component{
 
         //reset form data
     }
+    loading = () => {
+        if (this.ignoreLoading){
+            this.ignoreLoading = false;
+            return "";
+        }
+        else {
+            this.ignoreLoading = false;
+            return <Loading key="-1" />;
+        }
+        
+    }
     render(){
         return(
             <div className="fixRight" >
                 
-                {this.props.subscribers ? 
+                {this.props.subscribers && Object.keys(this.props.subscribers).length !== 0 ? 
+             
                     [<Select key="-1" 
                         label="Find a Subscriber by Status "
                         filter={this.props.filters.subscriberStatus} 
@@ -87,10 +107,9 @@ class Subscribers extends Component{
                         name={this.props.name}
                         email={this.props.email}
                     />]
-                    : <Loading key="-1" />
+                    : (this.loading())
                 }
-                { this.list.length === 0 ? "" : this.list}
-                {/* { this.props.subscribers ? "" : <Form/>} */}
+                { this.props.subscribers && Object.keys(this.props.subscribers).length === 0 ? "" : this.list}
             </div>
         );
     }
@@ -103,4 +122,4 @@ const mapStateToProps = (state) => {
         typedSubscriber: state.typedSubscriber
     });
 }
-export default connect(mapStateToProps, {getSubscribers, filterStatus, addName, addEmail, createSubscriber})(Subscribers);
+export default connect(mapStateToProps, {getSubscribers, filterStatus, addName, addEmail, createSubscriber, setSubscribers})(Subscribers);
