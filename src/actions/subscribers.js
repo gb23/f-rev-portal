@@ -24,13 +24,6 @@ export const addEmail = email => {
         email
     }
 }
-const loading = () => {
-    return{
-        type: 'LOADING'
-    }
-}
-
-
 //***ASYNC ACTIONS ***
 export const getSubscribers = (id) => {
     return dispatch => {
@@ -61,7 +54,5 @@ export const createSubscriber = (subscriber, id) => {
             .catch(error => {
                 debugger;
             });
-            debugger;
     }
-    
 }
