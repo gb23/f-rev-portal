@@ -42,13 +42,17 @@ export const createSubscriber = (subscriber, id) => {
     return dispatch => {
         //debugger;
         return fetch(`${API_URL}/businesses/${id}/subscribers?${token}`, {
+           
             method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            
+            //mode: 'no-cors',
+           
             body: JSON.stringify(bodyObj)
-        }).then(response => response.json())
+            }).then(response => {
+                debugger;
+                response.json()})
             .then(subscriber => {
+                debugger;
                 console.log("logging subscriber response", subscriber);
             })
             .catch(error => {
@@ -56,3 +60,10 @@ export const createSubscriber = (subscriber, id) => {
             });
     }
 }
+
+// headers: {
+//     'Content-Type': 'application/json',
+// },
+// headers: new Headers({
+ //   'Authorization': 567493801 
+//}),
