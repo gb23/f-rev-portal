@@ -92,10 +92,6 @@ class Subscribers extends Component{
         
     }
     validateForm = () =>{
-        //if true, provides real submit button
-        //if false, won't let submit
-        //if false, gives warning about name
-        //debugger;
         if(this.props.typedSubscriber.name.match(/\b[a-zA-Z']+\s[a-zA-Z']+\b/g) && this.props.typedSubscriber.email.match(/\b[\S]+\b/g) ){
             console.log("valid")
             return true;
