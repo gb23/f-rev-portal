@@ -4,7 +4,7 @@ const Form = (props) => {
     //debugger;
     return (
         <div
-            className="fixRightMost ba b--black-10"   
+            className="fixRightMost"   
         >
             <span>Want to Add Subscriber to </span> <span className="highlight"> Selected Business </span>
             <span>?</span>
