@@ -4,7 +4,8 @@ export default (state = null, action) => {
         
         case 'GET_SUBSCRIBERS_SUCCESS':
             return [...action.subscribers];
-
+        case 'MAKE_SUBSCRIBERS_NULL':
+            return null;
         default:
             //debugger;
             return state;

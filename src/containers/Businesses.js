@@ -42,8 +42,12 @@ class Businesses extends Component{
         );
     }
     onCardSelect = (event, id) => {
+        if(!this.props.subscribers || this.props.subscribers.length !== 0){
             console.log(id, "has been clicked");
-        this.props.selectBusiness(id);
+            this.props.selectBusiness(id);
+
+        }
+            
         
     
     }
@@ -69,6 +73,7 @@ class Businesses extends Component{
                         filter={this.props.filters.businessFranchise} 
                         filterAction={this.handleFilterTypeChange} 
                         options={makeArrayOfOptions(this.props.businesses, "franchise")}
+                        load={this.props.subscribers}
                     /> 
                     : <Loading key="-1" />
                 }
@@ -86,7 +91,8 @@ const mapStateToProps = (state) => {
     return({
         selectedId: state.selectedBusiness.id,
         businesses: state.businesses, 
-        filters: state.filters
+        filters: state.filters,
+        subscribers: state.subscribers
     });
 }
 export default connect(mapStateToProps, {getBusinesses, filterFranchise, selectBusiness})(Businesses);

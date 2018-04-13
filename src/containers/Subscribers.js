@@ -26,7 +26,7 @@ class Subscribers extends Component{
             
         }
         else if(nextProps.filters.businessFranchise !== this.props.filters.businessFranchise){
-            this.props.setSubscribers({})
+            this.props.setSubscribers({subscribers: [-1]})
             this.props.filterStatus("");
             this.ignoreLoading = true;
         }

@@ -6,10 +6,18 @@ export const setSubscribers = subObj => {
     if (!subObj.subscribers){
         subObj.subscribers = {};
     }
+    else if (subObj.subscribers[0] === -1) {
+        return {
+            type: 'MAKE_SUBSCRIBERS_NULL',
+            subscribers: null
+        }
+    }
+    
     return {
         type: 'GET_SUBSCRIBERS_SUCCESS',
         subscribers: subObj.subscribers
     }
+    
 }
 
 export const addName = name => {
