@@ -58,7 +58,9 @@ class Businesses extends Component{
         }
         return this.makeArrayOfCards(eles);
     }
-    
+    statusMessage = () => {
+        return <Loading key="-1" />
+    }
     render(){
         //debugger;
         return(
@@ -75,7 +77,7 @@ class Businesses extends Component{
                         options={makeArrayOfOptions(this.props.businesses, "franchise")}
                         load={this.props.subscribers}
                     /> 
-                    : <Loading key="-1" />
+                    : this.statusMessage()
                 }
                 <div className="pt5">
                 { this.list.length === 0 ? "" : this.list}
