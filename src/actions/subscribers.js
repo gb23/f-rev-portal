@@ -37,27 +37,22 @@ export const getSubscribers = (id) => {
 }
 export const createSubscriber = (subscriber, id) => {
     //debugger;
-    const bodyObj = {"subscriber": subscriber}
+    //const bodyObj = {"subscriber": subscriber, "token": 567493801}
     //debugger;
     return dispatch => {
-        //debugger;
-        return fetch(`${API_URL}/businesses/${id}/subscribers?${token}`, {
-           
+        //https://young-temple-44207.herokuapp.com/businesses/32/subscribers?token=567493801&subscriber[name]=Greg Ben&subscriber[email]=jkh123@yahoo.com
+        return fetch(`${API_URL}/businesses/${id}/subscribers?token=567493801&subscriber[name]=${subscriber.name}&subscriber[email]=${subscriber.email}`, {
             method: "POST",
-            
-            //mode: 'no-cors',
-           
-            body: JSON.stringify(bodyObj)
-            }).then(response => {
-                debugger;
+        }).then(response => {
+                //debugger;
                 response.json()})
-            .then(subscriber => {
-                debugger;
+        .then(subscriber => {
+                //debugger;
                 console.log("logging subscriber response", subscriber);
-            })
-            .catch(error => {
-                debugger;
-            });
+        })
+        .catch(error => {
+            console.log(error)
+        });
     }
 }
 
