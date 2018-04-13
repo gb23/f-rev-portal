@@ -2,7 +2,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 const token = "token=567493801"
 
 //***ACTION CREATORS ***
-const setBusinesses = businesses => { //make loading true here
+const setBusinesses = businesses => { 
     //debugger;
     return {
         type: 'GET_BUSINESSES_SUCCESS',
