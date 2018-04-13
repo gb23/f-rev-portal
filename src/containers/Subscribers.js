@@ -68,7 +68,9 @@ class Subscribers extends Component{
             this.props.addEmail(currentFormData.email)
         }
     }
-    handleSubmit = () => {
+    handleSubmit = (event) => {
+        console.log("event is ", event);
+        event.preventDefault();
         const subscriberObj = {
             "name": this.props.typedSubscriber.name,
             "email": this.props.typedSubscriber.email
