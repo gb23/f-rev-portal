@@ -14,9 +14,11 @@ class App extends Component {
     return (
       <Router>
       {/* // <ConnectedRouter history={history}> */}
-      <div className="center">
-       
+      <div className="topBar">
+        
         <Switch>
+        {/* <div className="bg-blue fixed w-100 ph3 pv3 pv4-ns ph4-m ph5-l"></div> */}
+          
           <Route exact path="/" render={() => <Redirect to="/portal" />} />
           {/* <Route exact path="/compositions" render={() => <Redirect to="/compositions/:id" />} /> */}
           <Route exact path="/portal" component={Businesses} />
