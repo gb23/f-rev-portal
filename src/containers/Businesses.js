@@ -28,8 +28,10 @@ class Businesses extends Component{
         }     
     }
     makeArrayOfCards = elements => {
-        return elements.map(element => 
-            <Card key={element.id}
+        return elements.map(element =>
+            <Card
+                highlight={ element.id === this.props.selectedId ? "highlight" : ""} 
+                key={element.id}
                 name={element.name}
                 cents={element.revenue_to_date_in_cents}
                 franchise={element.franchise} 
@@ -56,21 +58,27 @@ class Businesses extends Component{
     render(){
         //debugger;
         return(
-            <div className="fl w-third pa2">
+           
+            
+          
+            <div className="pl4 fl w-third pa2">
                 {/* <div class="outline bg-white pv4"> */}
                 {this.props.businesses ? 
                     <Select
-                        label="Find Businesses by Franchise "
+                        label="Find BUSINESSES by Franchise "
                         filter={this.props.filters.businessFranchise} 
                         filterAction={this.handleFilterTypeChange} 
                         options={makeArrayOfOptions(this.props.businesses, "franchise")}
                     /> 
                     : <Loading key="-1" />
                 }
+                <div className="pt5">
                 { this.list.length === 0 ? "" : this.list}
                 { this.props.filters.businessFranchise !== "" && this.props.selectedId > 0 ?  <Subscribers/> : "" }
+                </div>
                 {/* </div> */}
             </div>
+     
         );
     }
 }
